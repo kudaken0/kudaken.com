@@ -109,6 +109,9 @@ body.home {
   margin-top: 30%;
 }
 
+.main a {
+  color: white;
+}
 /* スマホ用 */
 @media screen and (max-width: 768px) {
   .main {
