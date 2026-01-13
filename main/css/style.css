@@ -131,6 +131,20 @@ body.home {
   .menu p {
     font-size: 50px; 
   }
+  .profile_name h2 {
+    font-size: 18px;
+  }
+}
+
+.profile_detail {
+  border-left: 1px solid #FFFFFF;
+  padding-left: 10px;
+  margin-top: 10px;
+}
+
+.profile_name h2 {
+  margin: 0;
+  padding: 0;
 }
 
 /*全共通*/
