@@ -1,7 +1,6 @@
 /* GoogleFontの読み込み */
 @import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kosugi&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=LINE+Seed+JP&display=swap');
 body {
     background-color: black;
 }
@@ -19,7 +18,7 @@ body.home {
     font-size: 20px;
     margin-right: 5%;
     margin-left: 30%;
-    font-family: "Kosugi", sans-serif;
+    font-family: "LINE Seed JP", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
