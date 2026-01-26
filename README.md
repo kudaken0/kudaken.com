@@ -9,7 +9,7 @@
 このリポジトリには、個人のウェブサイトである **kudaken.com** のソースコードが格納されています。
 
 ## 使用フォント
-当サイトでは[LINE Seed JP](https://fonts.google.com/specimen/LINE+Seed+JP)と[Stack Sans Notch](https://fonts.google.com/specimen/Stack+Sans+Notch)を使用しています。
+kudaken.comは[LINE Seed JP](https://fonts.google.com/specimen/LINE+Seed+JP)と[Stack Sans Notch](https://fonts.google.com/specimen/Stack+Sans+Notch)を使用しています。
 
 ## 使用技術
 
