@@ -1,65 +1,117 @@
-// 動きのきっかけの起点となるアニメーションの名前を定義
-function BgFadeAnime(){
+(() => {
+  'use strict';
 
-    // 背景色が伸びて出現（右から左）
-	$('.bgRLextendTrigger').each(function(){ //bgRLextendTriggerというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('bgRLextend');// 画面内に入ったらbgRLextendというクラス名を追記
-		}else{
-			$(this).removeClass('bgRLextend');// 画面外に出たらbgRLextendというクラス名を外す
-		}
-	});
-   // 文字列を囲う子要素
-	$('.bgappearTrigger').each(function(){ //bgappearTriggerというクラス名が
-		var elemPos = $(this).offset().top-50;//要素より、50px上の
-		var scroll = $(window).scrollTop();
-		var windowHeight = $(window).height();
-		if (scroll >= elemPos - windowHeight){
-			$(this).addClass('bgappear');// 画面内に入ったらbgappearというクラス名を追記
-		}else{
-			$(this).removeClass('bgappear');// 画面外に出たらbgappearというクラス名を外す
-		}
-	});		
-}
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// 画面をスクロールをしたら動かしたい場合の記述
-	$(window).scroll(function (){
-		BgFadeAnime();/* アニメーション用の関数を呼ぶ*/
-	});// ここまで画面をスクロールをしたら動かしたい場合の記述
+  function initMenu() {
+    const button = document.querySelector('.hamburger-overlay');
+    const nav = document.querySelector('.nav-overlay');
+    if (!button || !nav) return;
 
-// 画面が読み込まれたらすぐに動かしたい場合の記述
-	$(window).on('load', function(){
-		BgFadeAnime();/* アニメーション用の関数を呼ぶ*/
-	});// ここまで画面が読み込まれたらすぐに動かしたい場合の記述
+    const background = [...document.querySelectorAll('main, .header > a')];
+    let previousOverflow = '';
+    let previousInert = [];
+    let isOpen = false;
 
-// overlay-script.js
-document.addEventListener('DOMContentLoaded', () => {
-  const hamburger = document.querySelector('.hamburger-overlay');
-  const nav = document.querySelector('.nav-overlay');
+    function setOpen(open) {
+      if (open === isOpen) return;
+      isOpen = open;
+      button.classList.toggle('active', open);
+      nav.classList.toggle('active', open);
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニュー');
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('active');
-
-    const isOpen = hamburger.classList.contains('active');
-    hamburger.setAttribute('aria-expanded', isOpen);
-    nav.setAttribute('aria-hidden', !isOpen);
-
-    // メニューオープン時に背景スクロールを防止
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  // ESCキーでメニューを閉じる
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('active')) {
-      hamburger.classList.remove('active');
-      nav.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', false);
-      nav.setAttribute('aria-hidden', true);
-      document.body.style.overflow = '';
+      if (open) {
+        previousOverflow = document.body.style.overflow;
+        previousInert = background.map(element => element.inert);
+        background.forEach(element => { element.inert = true; });
+        document.body.style.overflow = 'hidden';
+        nav.inert = false;
+        nav.setAttribute('aria-hidden', 'false');
+        const firstLink = nav.querySelector('a[href]');
+        if (firstLink) firstLink.focus();
+      } else {
+        button.focus();
+        nav.inert = true;
+        nav.setAttribute('aria-hidden', 'true');
+        background.forEach((element, index) => { element.inert = previousInert[index]; });
+        document.body.style.overflow = previousOverflow;
+      }
     }
-  });
-});
+
+    button.addEventListener('click', () => setOpen(!isOpen));
+    document.addEventListener('keydown', event => {
+      if (!isOpen) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOpen(false);
+      } else if (event.key === 'Tab') {
+        const focusable = [button, ...nav.querySelectorAll('a[href]')];
+        const index = focusable.indexOf(document.activeElement);
+        const next = (index + (event.shiftKey ? -1 : 1) + focusable.length) % focusable.length;
+        event.preventDefault();
+        focusable[next].focus();
+      }
+    });
+    // 戻る操作でページが復元されたときもメニューを閉じた状態にする。
+    window.addEventListener('pageshow', () => setOpen(false));
+  }
+
+  function initAnimations() {
+    const triggers = [...document.querySelectorAll('.bgRLextendTrigger, .bgappearTrigger')];
+    if (!triggers.length) return;
+    document.documentElement.classList.add('js');
+    let scheduled = false;
+
+    function update() {
+      scheduled = false;
+      // 従来と同じく、画面下端の50px手前で開始し、下へ戻れば解除する。
+      const states = triggers.map(element => reducedMotion.matches || element.getBoundingClientRect().top <= window.innerHeight + 50);
+      triggers.forEach((element, index) => {
+        const animation = element.classList.contains('bgRLextendTrigger') ? 'bgRLextend' : 'bgappear';
+        element.classList.toggle(animation, states[index]);
+      });
+    }
+
+    function scheduleUpdate() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    reducedMotion.addEventListener('change', scheduleUpdate);
+    update();
+  }
+
+  function initVideo() {
+    const video = document.querySelector('.video video');
+    if (!video) return;
+    function updatePlayback() {
+      video.autoplay = !reducedMotion.matches;
+      if (reducedMotion.matches) {
+        video.pause();
+      } else {
+        // 自動再生がブラウザーに拒否されても未処理のPromiseにしない。
+        const playback = video.play();
+        if (playback) playback.catch(() => {});
+      }
+    }
+    reducedMotion.addEventListener('change', updatePlayback);
+    updatePlayback();
+  }
+
+  function init() {
+    initMenu();
+    initAnimations();
+    initVideo();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();

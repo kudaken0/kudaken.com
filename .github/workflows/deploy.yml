@@ -13,7 +13,7 @@ jobs:
       SSH_HOST: ${{ secrets.SSH_HOST }}
       SSH_PORT: ${{ secrets.SSH_PORT }}
       SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-      DEPLOY_PATH: /public_html/kudaken/kudaken.com
+      DEPLOY_PATH: ${{ secrets.SERVER_PASS }}
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     steps:

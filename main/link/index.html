@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kudaken Official Website">
-    <link rel="stylesheet" href="../css/style.css?v=2.2.1">
+    <meta name="description" content="KudakenのSNS、YouTube、各種リンク一覧。">
+    <link rel="stylesheet" href="../css/style.css?v=2.3.0">
     <link rel="icon" type="image/png" href="../img/favicon.png">
     <title>Kudaken - LINK</title>
     <!-- OGPの設定 -->
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="Kudaken - LINK" />
-    <meta property="og:description" content="Kudaken Official Website" />
-    <meta property="og:url" content="https://kudaken.com/" />
+    <meta property="og:description" content="KudakenのSNS、YouTube、各種リンク一覧。" />
+    <meta property="og:url" content="https://kudaken.com/link/" />
+    <link rel="canonical" href="https://kudaken.com/link/">
     <meta property="og:site_name" content="Kudaken - LINK" />
     <meta property="og:image" content="https://kudaken.com/img/ogp.png" />
     <!-- Twitterカードの設定 -->
@@ -20,26 +21,26 @@
 
 </head>
 <body>
-<div class="header">
-  <a href="../index.html"><img src="../img/icon.webp" alt="kudaken icon" width="50px" height="50px"></a>
-  <button class="hamburger-overlay" aria-label="メニュー" aria-controls="overlay-menu" aria-expanded="false">
+<header class="header">
+  <a href="/" aria-label="Kudaken HOME"><img src="../img/icon.webp" alt="kudaken icon" width="50" height="50"></a>
+  <button type="button" class="hamburger-overlay" aria-label="メニュー" aria-controls="overlay-menu" aria-expanded="false">
     <span class="hamburger-overlay__line"></span>
     <span class="hamburger-overlay__line"></span>
     <span class="hamburger-overlay__line"></span>
   </button>
 
-  <nav id="overlay-menu" class="nav-overlay" aria-hidden="true">
+  <nav id="overlay-menu" class="nav-overlay" aria-label="メインメニュー" aria-hidden="true" inert>
     <div class="nav-overlay__content">
       <ul class="nav-overlay__list">
-        <li class="nav-overlay__item"><a href="../index.html" class="nav-overlay__link">HOME</a></li>
+        <li class="nav-overlay__item"><a href="/" class="nav-overlay__link">HOME</a></li>
         <li class="nav-overlay__item"><a href="../profile/" class="nav-overlay__link">PROFILE</a></li>
         <li class="nav-overlay__item"><a href="https://blog.kudaken.com" class="nav-overlay__link">BLOG</a></li>
         <li class="nav-overlay__item"><a href="../contact/" class="nav-overlay__link">CONTACT</a></li>
       </ul>
     </div>
   </nav>
-</div>
-<div class="main">
+</header>
+<main class="main">
     <h1><span class="bgextend bgRLextendTrigger"><span class="bgappearTrigger">LINK</span></span></h1>
     <div id="text">
     <a href="https://x.com/kudaken0"><p>X/Twitter</p></a>
@@ -48,8 +49,7 @@
     <br>
     <a href="https://link.kudaken.com/"><p>Other Link (link.kudaken.com)</p></a>
 </div>
-</div>    
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="../js/main.js?v=2.0"></script>
+</main>
+<script defer src="../js/main.js?v=2.3.0"></script>
 </body>
 </html>

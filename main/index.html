@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kudaken Official Website">
-    <link rel="stylesheet" href="css/style.css?v=2.0">
+    <meta name="description" content="Kudakenの公式サイト。デザイン、映像編集、Web制作などを行うMultiCreator。">
+    <link rel="stylesheet" href="css/style.css?v=2.3.0">
     <link rel="icon" type="image/png" href="img/favicon.png">
     <title>Kudaken - HOME</title>
     <!-- OGPの設定 -->
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="Kudaken - HOME" />
-    <meta property="og:description" content="Kudaken Official Website" />
+    <meta property="og:description" content="Kudakenの公式サイト。デザイン、映像編集、Web制作などを行うMultiCreator。" />
     <meta property="og:url" content="https://kudaken.com/" />
+    <link rel="canonical" href="https://kudaken.com/">
     <meta property="og:site_name" content="Kudaken - HOME" />
     <meta property="og:image" content="https://kudaken.com/img/ogp.png" />
     <!-- Twitterカードの設定 -->
@@ -19,20 +20,23 @@
     <meta name="twitter:site" content="@kudaken0" />
 </head>
 <body class="home">
-    <div class="header">
-        <img src="img/icon.webp" alt="kudaken icon" width="50px" height="50px">
-    </div>
-<nav class="menu">
+    <header class="header">
+        <img src="img/icon.webp" alt="kudaken icon" width="50" height="50">
+    </header>
+    <main class="home-main">
+    <h1 class="visually-hidden">Kudaken</h1>
+    <nav class="menu" aria-label="メインメニュー">
       <ul>
-        <li><p><a href="profile/">PROFILE</a></p></li>
-        <li><p><a href="https://blog.kudaken.com">BLOG</a></p></li>
-        <li><p><a href="link/">LINK</a></p></li>
-        <li><p><a href="contact/">CONTACT</a></p></li>
+        <li><a href="profile/">PROFILE</a></li>
+        <li><a href="https://blog.kudaken.com">BLOG</a></li>
+        <li><a href="link/">LINK</a></li>
+        <li><a href="contact/">CONTACT</a></li>
       </ul>
     </nav>
-    <div class="video">
-      <video src="img/movie.mp4" poster="img/poster.png" autoplay loop muted playsinline></video>
+    </main>
+    <div class="video" aria-hidden="true">
+      <video src="img/movie.mp4" poster="img/poster.png" autoplay loop muted playsinline preload="metadata"></video>
     </div>
-<script src="js/main.js?v=2.0"></script>
+<script defer src="js/main.js?v=2.3.0"></script>
 </body>
 </html>
