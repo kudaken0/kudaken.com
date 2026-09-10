@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.gitignore'
+      - 'README.md'
+      - '.github/workflows/deploy.yml'
 
 jobs:
   deploy:
@@ -30,6 +34,7 @@ jobs:
       - name: Deploy with rsync
         run: |
           rsync -avzc \
+            --exclude='.DS_Store' \
             -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no" \
             ./main/ \
             "$SSH_USERNAME@$SSH_HOST:$DEPLOY_PATH/"
